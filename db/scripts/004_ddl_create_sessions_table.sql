@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS sessions
+(
+  id SERIAL PRIMARY KEY,
+  name VARCHAR,
+  hall_id INT NOT NULL REFERENCES halls(id)
+);

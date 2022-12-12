@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS halls
+(
+  id SERIAL PRIMARY KEY,
+  name VARCHAR NOT NULL UNIQUE,
+  rows int NOT NULL,
+  cells int NOT NULL
+);

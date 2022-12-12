@@ -1,0 +1,1 @@
+insert into halls(name, rows, cells) values ('Hall1', 10, 20), ('Hall2', 15, 30), ('Hall3', 20, 30);
