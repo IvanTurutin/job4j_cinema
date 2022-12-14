@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import ru.job4j.cinema.model.Session;
-import ru.job4j.cinema.service.SimpleSessionService;
+import ru.job4j.cinema.service.SessionService;
 import ru.job4j.cinema.util.ControllerUtility;
 
 import javax.servlet.http.HttpSession;
@@ -15,9 +15,9 @@ import java.util.Optional;
 @ThreadSafe
 @Controller
 public class SessionController {
-    private final SimpleSessionService sessionService;
+    private final SessionService sessionService;
 
-    public SessionController(SimpleSessionService sessionService) {
+    public SessionController(SessionService sessionService) {
         this.sessionService = sessionService;
     }
 

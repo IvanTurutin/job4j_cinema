@@ -126,7 +126,6 @@ public class JDBCTicketRepository implements TicketRepository {
      */
     private List<Ticket> find(String statement, int id) {
         List<Ticket> tickets = new LinkedList<>();
-        //Optional<Ticket> optionalTicket = Optional.empty();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(statement)
         ) {
@@ -136,9 +135,6 @@ public class JDBCTicketRepository implements TicketRepository {
                 while (rs.next()) {
                     tickets.add(createTicket(rs));
                 }
- /*               if (rs.next()) {
-                    optionalTicket = Optional.of(createTicket(rs));
-                }*/
             }
         } catch (Exception e) {
             LOG.error("Exception in JDBCTicketRepository", e);

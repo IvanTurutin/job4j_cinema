@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.cinema.model.Session;
 import ru.job4j.cinema.model.Ticket;
 import ru.job4j.cinema.model.User;
-import ru.job4j.cinema.service.SimpleTicketService;
+import ru.job4j.cinema.service.TicketService;
 import ru.job4j.cinema.util.ControllerUtility;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +18,9 @@ import javax.servlet.http.HttpSession;
 @ThreadSafe
 @Controller
 public class TicketController {
-    private final SimpleTicketService ticketService;
+    private final TicketService ticketService;
 
-    public TicketController(SimpleTicketService ticketService) {
+    public TicketController(TicketService ticketService) {
         this.ticketService = ticketService;
     }
 
