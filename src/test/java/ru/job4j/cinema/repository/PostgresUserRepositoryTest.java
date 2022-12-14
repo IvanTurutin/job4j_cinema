@@ -12,11 +12,11 @@ import static org.assertj.core.api.Assertions.*;
 
 class PostgresUserRepositoryTest {
 
-    private static PostgresUserRepository store;
+    private static JDBCUserRepository store;
 
     @BeforeAll
     public static void initStore() {
-        store = new PostgresUserRepository(new Main().loadPool());
+        store = new JDBCUserRepository(new Main().loadPool());
         store.truncateTable();
     }
 

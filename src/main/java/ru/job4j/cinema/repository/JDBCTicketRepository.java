@@ -14,7 +14,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -25,9 +24,9 @@ import java.util.Optional;
  */
 @ThreadSafe
 @Repository
-public class PostgresTicketRepository implements TicketRepository {
+public class JDBCTicketRepository implements TicketRepository {
     private final DataSource pool;
-    private static final Logger LOG = LoggerFactory.getLogger(PostgresSessionRepository.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(JDBCTicketRepository.class.getName());
 
     private static final String TABLE_NAME_TICKETS = "tickets";
     private static final String TABLE_NAME_USERS = "users";
@@ -60,7 +59,7 @@ public class PostgresTicketRepository implements TicketRepository {
     private static final String TRUNCATE_TABLE =
             String.format("TRUNCATE TABLE %s RESTART IDENTITY", TABLE_NAME_TICKETS);
 
-    public PostgresTicketRepository(DataSource pool) {
+    public JDBCTicketRepository(DataSource pool) {
         this.pool = pool;
     }
 
@@ -89,7 +88,7 @@ public class PostgresTicketRepository implements TicketRepository {
                 }
             }
         } catch (Exception e) {
-            LOG.error("Exception in PostgresTicketRepository", e);
+            LOG.error("Exception in JDBCTicketRepository", e);
         }
         return optionalTicket;
     }
@@ -142,7 +141,7 @@ public class PostgresTicketRepository implements TicketRepository {
                 }*/
             }
         } catch (Exception e) {
-            LOG.error("Exception in PostgresTicketRepository", e);
+            LOG.error("Exception in JDBCTicketRepository", e);
         }
         return tickets;
 
@@ -222,7 +221,7 @@ public class PostgresTicketRepository implements TicketRepository {
         ) {
             ps.execute();
         } catch (Exception e) {
-            LOG.error("Exception in PostgresTicketRepository", e);
+            LOG.error("Exception in JDBCTicketRepository", e);
         }
     }
 

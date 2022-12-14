@@ -20,10 +20,10 @@ import java.util.Optional;
  */
 @ThreadSafe
 @Repository
-public class PostgresUserRepository implements UserRepository {
+public class JDBCUserRepository implements UserRepository {
 
     private final DataSource pool;
-    private static final Logger LOG = LoggerFactory.getLogger(PostgresUserRepository.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(JDBCUserRepository.class.getName());
 
     private static final String TABLE_NAME = "users";
     private static final String ADD_STATEMENT = String.format(
@@ -35,7 +35,7 @@ public class PostgresUserRepository implements UserRepository {
             TABLE_NAME);
 
 
-    public PostgresUserRepository(DataSource pool) {
+    public JDBCUserRepository(DataSource pool) {
         this.pool = pool;
     }
 
@@ -64,7 +64,7 @@ public class PostgresUserRepository implements UserRepository {
                 }
             }
         } catch (Exception e) {
-            LOG.error("Exception in PostgresUserRepository", e);
+            LOG.error("Exception in JDBCUserRepository", e);
         }
         return optionalUser;
     }
@@ -88,7 +88,7 @@ public class PostgresUserRepository implements UserRepository {
                 }
             }
         } catch (Exception e) {
-            LOG.error("Exception in PostgresUserRepository", e);
+            LOG.error("Exception in JDBCUserRepository", e);
         }
         return Optional.empty();
     }
@@ -118,7 +118,7 @@ public class PostgresUserRepository implements UserRepository {
         ) {
             ps.execute();
         } catch (Exception e) {
-            LOG.error("Exception in PostgresUserRepository", e);
+            LOG.error("Exception in JDBCUserRepository", e);
         }
     }
 

@@ -14,11 +14,11 @@ import static org.assertj.core.api.Assertions.*;
 
 class PostgresSessionRepositoryTest {
 
-    private static PostgresSessionRepository store;
+    private static JDBCSessionRepository store;
 
     @BeforeAll
     public static void initStore() {
-        store = new PostgresSessionRepository(new Main().loadPool());
+        store = new JDBCSessionRepository(new Main().loadPool());
         store.truncateTable();
     }
 
