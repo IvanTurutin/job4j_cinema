@@ -24,9 +24,9 @@ import java.util.Optional;
  */
 @ThreadSafe
 @Repository
-public class JDBCTicketRepository implements TicketRepository {
+public class JdbcTicketRepository implements TicketRepository {
     private final DataSource pool;
-    private static final Logger LOG = LoggerFactory.getLogger(JDBCTicketRepository.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(JdbcTicketRepository.class.getName());
 
     private static final String TABLE_NAME_TICKETS = "tickets";
     private static final String TABLE_NAME_USERS = "users";
@@ -59,7 +59,7 @@ public class JDBCTicketRepository implements TicketRepository {
     private static final String TRUNCATE_TABLE =
             String.format("TRUNCATE TABLE %s RESTART IDENTITY", TABLE_NAME_TICKETS);
 
-    public JDBCTicketRepository(DataSource pool) {
+    public JdbcTicketRepository(DataSource pool) {
         this.pool = pool;
     }
 
@@ -88,7 +88,7 @@ public class JDBCTicketRepository implements TicketRepository {
                 }
             }
         } catch (Exception e) {
-            LOG.error("Exception in JDBCTicketRepository", e);
+            LOG.error("Exception in JdbcTicketRepository", e);
         }
         return optionalTicket;
     }
@@ -137,7 +137,7 @@ public class JDBCTicketRepository implements TicketRepository {
                 }
             }
         } catch (Exception e) {
-            LOG.error("Exception in JDBCTicketRepository", e);
+            LOG.error("Exception in JdbcTicketRepository", e);
         }
         return tickets;
 
@@ -217,7 +217,7 @@ public class JDBCTicketRepository implements TicketRepository {
         ) {
             ps.execute();
         } catch (Exception e) {
-            LOG.error("Exception in JDBCTicketRepository", e);
+            LOG.error("Exception in JdbcTicketRepository", e);
         }
     }
 

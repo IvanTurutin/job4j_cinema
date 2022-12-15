@@ -16,18 +16,18 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class PostgresTicketRepositoryTest {
+class JdbcTicketRepositoryTest {
 
-    private static JDBCTicketRepository ticketStore;
-    private static JDBCUserRepository userStore;
-    private static JDBCSessionRepository sessionStore;
+    private static JdbcTicketRepository ticketStore;
+    private static JdbcUserRepository userStore;
+    private static JdbcSessionRepository sessionStore;
 
     @BeforeAll
     public static void initStore() {
         DataSource pool = new Main().loadPool();
-        ticketStore = new JDBCTicketRepository(pool);
-        userStore = new JDBCUserRepository(pool);
-        sessionStore = new JDBCSessionRepository(pool);
+        ticketStore = new JdbcTicketRepository(pool);
+        userStore = new JdbcUserRepository(pool);
+        sessionStore = new JdbcSessionRepository(pool);
         ticketStore.truncateTable();
         userStore.truncateTable();
         sessionStore.truncateTable();

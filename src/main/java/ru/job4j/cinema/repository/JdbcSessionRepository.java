@@ -20,9 +20,9 @@ import java.util.*;
  */
 @ThreadSafe
 @Repository
-public class JDBCSessionRepository implements SessionRepository {
+public class JdbcSessionRepository implements SessionRepository {
     private final DataSource pool;
-    private static final Logger LOG = LoggerFactory.getLogger(JDBCSessionRepository.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(JdbcSessionRepository.class.getName());
     private static final String TABLE_NAME_SESSIONS = "sessions";
     private static final String TABLE_NAME_HALLS = "halls";
     private static final String SELECT_STATEMENT = String.format(
@@ -44,7 +44,7 @@ public class JDBCSessionRepository implements SessionRepository {
             "DELETE FROM %s",
             TABLE_NAME_SESSIONS
     );
-    public JDBCSessionRepository(DataSource pool) {
+    public JdbcSessionRepository(DataSource pool) {
         this.pool = pool;
     }
 
@@ -64,7 +64,7 @@ public class JDBCSessionRepository implements SessionRepository {
                 }
             }
         } catch (Exception e) {
-            LOG.error("Exception in JDBCSessionRepository", e);
+            LOG.error("Exception in JdbcSessionRepository", e);
         }
         return sessions;
     }
@@ -109,7 +109,7 @@ public class JDBCSessionRepository implements SessionRepository {
                     )
             );
         } catch (SQLException e) {
-            LOG.error("Exception in JDBCSessionRepository", e);
+            LOG.error("Exception in JdbcSessionRepository", e);
         }
         return null;
     }
@@ -123,7 +123,7 @@ public class JDBCSessionRepository implements SessionRepository {
         ) {
             ps.execute();
         } catch (Exception e) {
-            LOG.error("Exception in JDBCSessionRepository", e);
+            LOG.error("Exception in JdbcSessionRepository", e);
         }
     }
 
@@ -150,7 +150,7 @@ public class JDBCSessionRepository implements SessionRepository {
                 }
             }
         } catch (Exception e) {
-            LOG.error("Exception in JDBCSessionRepository", e);
+            LOG.error("Exception in JdbcSessionRepository", e);
         }
         return optionalSession;
     }

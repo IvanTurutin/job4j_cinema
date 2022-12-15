@@ -10,13 +10,13 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 
-class PostgresUserRepositoryTest {
+class JdbcUserRepositoryTest {
 
-    private static JDBCUserRepository store;
+    private static JdbcUserRepository store;
 
     @BeforeAll
     public static void initStore() {
-        store = new JDBCUserRepository(new Main().loadPool());
+        store = new JdbcUserRepository(new Main().loadPool());
         store.truncateTable();
     }
 
