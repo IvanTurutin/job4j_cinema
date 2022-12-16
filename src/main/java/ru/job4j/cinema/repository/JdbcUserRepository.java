@@ -124,11 +124,11 @@ public class JdbcUserRepository implements UserRepository {
 
     /**
      * Удаляет пользователя из базы данных
-     * @param user объект пользователя, которого нужно удалить
+     * @param id идентификатор пользователя, которого нужно удалить
      * @return Optional с удаленным пользователем, или Optional.empty() если пользователь не был удален.
      */
     @Override
-    public Optional<User> delete(User user) {
+    public Optional<User> delete(int id) {
         throw new UnsupportedOperationException("Not implemented, yet");
     }
 
@@ -138,7 +138,7 @@ public class JdbcUserRepository implements UserRepository {
      * @return Optional с обновленным пользователем, или Optional.empty() если пользователь не был обновлен.
      */
     @Override
-    public User update(User user) {
+    public boolean update(User user) {
         throw new UnsupportedOperationException("Not implemented, yet");
     }
 

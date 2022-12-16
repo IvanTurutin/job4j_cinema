@@ -41,7 +41,7 @@ public class SimpleSessionService implements SessionService {
     }
 
     @Override
-    public Optional<Session> delete(int id) {
+    public boolean delete(int id) {
         return sessionDBStore.delete(id);
     }
 }

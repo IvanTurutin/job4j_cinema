@@ -4,8 +4,6 @@ import net.jcip.annotations.ThreadSafe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import ru.job4j.cinema.model.Hall;
-import ru.job4j.cinema.model.Session;
 import ru.job4j.cinema.model.Ticket;
 import ru.job4j.cinema.model.User;
 
@@ -29,33 +27,14 @@ public class JdbcTicketRepository implements TicketRepository {
     private static final Logger LOG = LoggerFactory.getLogger(JdbcTicketRepository.class.getName());
 
     private static final String TABLE_NAME_TICKETS = "tickets";
-    private static final String TABLE_NAME_USERS = "users";
-    private static final String TABLE_NAME_SESSIONS = "sessions";
-    private static final String TABLE_NAME_HALLS = "halls";
     private static final String ADD_STATEMENT = String.format(
             "INSERT INTO %s(session_id, pos_row, cell, user_id) VALUES (?, ?, ?, ?)",
             TABLE_NAME_TICKETS);
     private static final String SELECT_TICKETS_STATEMENT = String.format(
-            "SELECT t.*, "
-                    + "s.name as s_name, "
-                    + "s.hall_id as h_id, "
-                    + "h.name as h_name, "
-                    + "h.rows as h_rows, "
-                    + "h.cells as h_cells, "
-                    + "u.username as u_name, "
-                    + "u.password as u_pass, "
-                    + "u.email as u_email, "
-                    + "u.phone as u_phone "
-                    + "FROM %s as t "
-                    + "JOIN %s as s ON t.session_id = s.id "
-                    + "JOIN %s as h ON s.hall_id = h.id "
-                    + "JOIN %s as u ON t.user_id = u.id ",
-            TABLE_NAME_TICKETS,
-            TABLE_NAME_SESSIONS,
-            TABLE_NAME_HALLS,
-            TABLE_NAME_USERS);
-    private static final String FIND_BY_USERID_STATEMENT = SELECT_TICKETS_STATEMENT + "WHERE t.user_id = ?";
-    private static final String FIND_BY_SESSIONID_STATEMENT = SELECT_TICKETS_STATEMENT + "WHERE t.id = ?";
+            "SELECT * FROM %s ",
+            TABLE_NAME_TICKETS);
+    private static final String FIND_BY_USERID_STATEMENT = SELECT_TICKETS_STATEMENT + "WHERE user_id = ?";
+    private static final String FIND_BY_SESSIONID_STATEMENT = SELECT_TICKETS_STATEMENT + "WHERE id = ?";
     private static final String TRUNCATE_TABLE =
             String.format("TRUNCATE TABLE %s RESTART IDENTITY", TABLE_NAME_TICKETS);
 
@@ -76,10 +55,10 @@ public class JdbcTicketRepository implements TicketRepository {
              PreparedStatement ps = cn.prepareStatement(ADD_STATEMENT,
                      PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
-            ps.setInt(1, ticket.getCinemaSession().getId());
+            ps.setInt(1, ticket.getSessionId());
             ps.setInt(2, ticket.getPosRow());
             ps.setInt(3, ticket.getCell());
-            ps.setInt(4, ticket.getUser().getId());
+            ps.setInt(4, ticket.getUserId());
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -152,59 +131,20 @@ public class JdbcTicketRepository implements TicketRepository {
     private Ticket createTicket(ResultSet rs) throws SQLException {
         return new Ticket(
                 rs.getInt("id"),
-                createSession(rs),
+                rs.getInt("session_id"),
                 rs.getInt("pos_row"),
                 rs.getInt("cell"),
-                createUser(rs)
+                rs.getInt("user_id")
             );
     }
 
     /**
-     * Формирует объект Session из данных в ResultSet
-     * @param rs результат запроса
-     * @return объект Session
-     * @throws SQLException выбрасывается исключение в случае отсутствия необходимых данных в ResultSet
+     * Удаляет билет из базы
+     * @param id идентификатор билета
+     * @return true если билет удален, false если нет
      */
-    private Session createSession(ResultSet rs) throws SQLException {
-        return new Session(
-                rs.getInt("session_id"),
-                rs.getString("s_name"),
-                createHall(rs)
-        );
-    }
-
-    /**
-     * Формирует объект Hall из данных в ResultSet
-     * @param rs результат запроса
-     * @return объект Hall
-     * @throws SQLException выбрасывается исключение в случае отсутствия необходимых данных в ResultSet
-     */
-    private Hall createHall(ResultSet rs) throws SQLException {
-        return new Hall(rs.getInt("h_id"),
-                rs.getString("h_name"),
-                rs.getInt("h_rows"),
-                rs.getInt("h_cells")
-        );
-    }
-
-    /**
-     * Формирует объект User из данных в ResultSet
-     * @param rs результат запроса
-     * @return объект User
-     * @throws SQLException выбрасывается исключение в случае отсутствия необходимых данных в ResultSet
-     */
-    private User createUser(ResultSet rs) throws SQLException {
-        return new User(
-                rs.getInt("user_id"),
-                rs.getString("u_name"),
-                rs.getString("u_pass"),
-                rs.getString("u_email"),
-                rs.getString("u_phone")
-        );
-    }
-
     @Override
-    public Optional<Ticket> delete(int id) {
+    public boolean delete(int id) {
         throw new UnsupportedOperationException("Not implemented, yet");
     }
 

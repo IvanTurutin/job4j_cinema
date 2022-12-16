@@ -55,8 +55,8 @@ public class TicketController {
         HttpSession session = req.getSession();
         Session cinemaSession = (Session) session.getAttribute("cinemaSession");
         User user = (User) session.getAttribute("user");
-        ticket.setCinemaSession(cinemaSession);
-        ticket.setUser(user);
+        ticket.setSessionId(cinemaSession.getId());
+        ticket.setUserId(user.getId());
         System.out.println("ticket in buyTicket:" + ticket);
         if (ticketService.add(ticket).isEmpty()) {
             return "redirect:seatIsTaken";

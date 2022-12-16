@@ -55,13 +55,13 @@
                         <tr>
                             <th scope="col">Ряд</th>
                             <th style="text-align: center; vertical-align: middle;"
-                                th:colspan="${session.cinemaSession.hall.cells}">Места</th>
+                                th:colspan="${session.halls.get(__${session.cinemaSession.hallId}__).cells}">Места</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="row: ${#numbers.sequence(1, session.cinemaSession.hall.rows)}">
+                        <tr th:each="row: ${#numbers.sequence(1, session.halls.get(__${session.cinemaSession.hallId}__).rows)}">
                             <td th:text="${row}" />
-                            <td th:each="cell: ${#numbers.sequence(1, session.cinemaSession.hall.cells)}">
+                            <td th:each="cell: ${#numbers.sequence(1, session.halls.get(__${session.cinemaSession.hallId}__).cells)}">
                                 <a th:text="${cell}" />
                             </td>
                         </tr>
@@ -97,7 +97,7 @@
                     <div class="form-group">
                         <label for="cell">Выберите место</label>
                         <select class="form-control" id="cell" name="cell">
-                            <option th:each="numb : ${#numbers.sequence(1, session.cinemaSession.hall.cells)}" th:value="${numb}" th:text="${numb}"></option>
+                            <option th:each="numb : ${#numbers.sequence(1, session.halls.get(__${session.cinemaSession.hallId}__).cells)}" th:value="${numb}" th:text="${numb}"></option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Забронировать</button>

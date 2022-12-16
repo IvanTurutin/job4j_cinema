@@ -15,24 +15,31 @@ import static org.assertj.core.api.Assertions.*;
 class JdbcSessionRepositoryTest {
 
     private static JdbcSessionRepository store;
+    private static JdbcHallRepository hallRepository;
+
 
     @BeforeAll
     public static void initStore() {
         store = new JdbcSessionRepository(new Main().loadPool());
+        hallRepository = new JdbcHallRepository(new Main().loadPool());
         store.truncateTable();
+        hallRepository.truncateTable();
     }
 
     @AfterEach
     public void truncateTable() {
         store.truncateTable();
+        hallRepository.truncateTable();
     }
 
     @Test
     void whenFindById() {
+        Hall hall = new Hall(0, "first", 5, 10);
+        hallRepository.add(hall);
         Session session = new Session(
                 0,
                 "Session 1",
-                new Hall(1, "", 1, 2)
+                hall.getId()
         );
         store.add(session);
         Optional<Session> sessionInDB = store.findById(session.getId());
@@ -42,15 +49,20 @@ class JdbcSessionRepositoryTest {
 
     @Test
     void whenFindAll() {
+        Hall hall1 = new Hall(0, "first", 5, 10);
+        hallRepository.add(hall1);
+        Hall hall2 = new Hall(0, "second", 8, 15);
+        hallRepository.add(hall2);
+
         Session session = new Session(
                 0,
                 "Session 1",
-                new Hall(1, "", 1, 2)
+                hall1.getId()
         );
         Session session2 = new Session(
                 0,
                 "Session 2",
-                new Hall(2, "", 1, 2)
+                hall2.getId()
         );
         store.add(session);
         store.add(session2);

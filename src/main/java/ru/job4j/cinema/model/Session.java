@@ -15,18 +15,17 @@ public class Session {
      */
     private String name;
     /**
-     * Зал, в котором проходит сеанс
-     * @see ru.job4j.cinema.model.Hall
+     * Идентификатор зала, в котором проходит сеанс
      */
-    private Hall hall;
+    private int hallId;
 
     public Session() {
     }
 
-    public Session(int id, String name, Hall hall) {
+    public Session(int id, String name, int hallId) {
         this.id = id;
         this.name = name;
-        this.hall = hall;
+        this.hallId = hallId;
     }
 
     public int getId() {
@@ -45,12 +44,12 @@ public class Session {
         this.name = name;
     }
 
-    public Hall getHall() {
-        return hall;
+    public int getHallId() {
+        return hallId;
     }
 
-    public void setHall(Hall hall) {
-        this.hall = hall;
+    public void setHallId(int hallId) {
+        this.hallId = hallId;
     }
 
     @Override
@@ -75,7 +74,7 @@ public class Session {
         return "Session{"
                 + "id=" + id
                 + ", name='" + name + '\''
-                + ", hall='" + hall + '\''
+                + ", hall='" + hallId + '\''
                 + '}';
     }
 }

@@ -24,18 +24,10 @@ public class JdbcSessionRepository implements SessionRepository {
     private final DataSource pool;
     private static final Logger LOG = LoggerFactory.getLogger(JdbcSessionRepository.class.getName());
     private static final String TABLE_NAME_SESSIONS = "sessions";
-    private static final String TABLE_NAME_HALLS = "halls";
     private static final String SELECT_STATEMENT = String.format(
-            "SELECT s.*, "
-                    + "h.name as hall_name, "
-                    + "h.rows, "
-                    + "h.cells "
-                    + "FROM %s as s "
-                    + "JOIN %s as h ON s.hall_id = h.id ",
-            TABLE_NAME_SESSIONS,
-            TABLE_NAME_HALLS);
+            "SELECT * FROM %s ", TABLE_NAME_SESSIONS);
     private static final String FIND_ALL_STATEMENT = SELECT_STATEMENT + "ORDER BY id";
-    private static final String FIND_BY_ID_STATEMENT = SELECT_STATEMENT + "WHERE s.id = ?";
+    private static final String FIND_BY_ID_STATEMENT = SELECT_STATEMENT + "WHERE id = ?";
     private static final String ADD_STATEMENT = String.format(
             "INSERT INTO %s(name, hall_id) VALUES (?, ?)",
             TABLE_NAME_SESSIONS);
@@ -102,11 +94,7 @@ public class JdbcSessionRepository implements SessionRepository {
             return new Session(
                     rs.getInt("id"),
                     rs.getString("name"),
-                    new Hall(rs.getInt("hall_id"),
-                            rs.getString("hall_name"),
-                            rs.getInt("rows"),
-                            rs.getInt("cells")
-                    )
+                    rs.getInt("hall_id")
             );
         } catch (SQLException e) {
             LOG.error("Exception in JdbcSessionRepository", e);
@@ -115,7 +103,7 @@ public class JdbcSessionRepository implements SessionRepository {
     }
 
     /**
-     * Метод очищает таблицу sssions
+     * Метод очищает таблицу sessions
      */
     public void truncateTable() {
         try (Connection cn = pool.getConnection();
@@ -130,7 +118,7 @@ public class JdbcSessionRepository implements SessionRepository {
     /**
      * Метод производит добавление сеанса в базу данных с присвоением идентификатора
      * @param session объект сеанса, добавляемый в базу данных
-     * @return добавленный сеанс с обноенным идентификатором обернутый в Optional,
+     * @return добавленный сеанс с обновленным идентификатором обернутый в Optional,
      * либо Optional.empty() если такого сеанса не найдено.
      */
     @Override
@@ -141,7 +129,7 @@ public class JdbcSessionRepository implements SessionRepository {
                      PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             ps.setString(1, session.getName());
-            ps.setInt(2, session.getHall().getId());
+            ps.setInt(2, session.getHallId());
             ps.execute();
             try (ResultSet rs = ps.getGeneratedKeys()) {
                 if (rs.next()) {
@@ -171,7 +159,7 @@ public class JdbcSessionRepository implements SessionRepository {
      * @return удаленный сеанс обернутый в Optional, либо Optional.empty() если произошла обшибка удаления.
      */
     @Override
-    public Optional<Session> delete(int id) {
+    public boolean delete(int id) {
         throw new UnsupportedOperationException("Not implemented, yet");
     }
 }

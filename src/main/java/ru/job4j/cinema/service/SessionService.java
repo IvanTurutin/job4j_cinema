@@ -14,5 +14,5 @@ public interface SessionService {
 
     Optional<Session> update(Session session);
 
-    Optional<Session> delete(int id);
+    boolean delete(int id);
 }

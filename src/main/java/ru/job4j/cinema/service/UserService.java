@@ -9,9 +9,9 @@ import java.util.Optional;
 public interface UserService {
     Optional<User> add(User user);
 
-    Optional<User> delete(User user);
+    Optional<User> delete(int id);
 
-    User update(User user);
+    boolean update(User user);
 
     Optional<User> findByEmailAndPassword(String email, String password);
 

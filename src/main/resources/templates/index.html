@@ -55,7 +55,7 @@
                         <span th:text="${movie.name}"></span>
                     </a>
                 </td>
-                <td th:text="${movie.hall.id}" />
+                <td th:text="${session.halls.get(__${movie.hallId}__).name}" />
             </tr>
             </tbody>
         </table>

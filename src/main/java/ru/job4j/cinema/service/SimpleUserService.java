@@ -32,12 +32,12 @@ public class SimpleUserService implements UserService {
     }
 
     @Override
-    public Optional<User> delete(User user) {
-        return userDBStore.delete(user);
+    public Optional<User> delete(int id) {
+        return userDBStore.delete(id);
     }
 
     @Override
-    public User update(User user) {
+    public boolean update(User user) {
         return userDBStore.update(user);
     }
 

@@ -27,9 +27,9 @@ class TicketControllerTest {
         HttpSession session = mock(HttpSession.class);
 
         User user1 = new User(0, "User1", "123", "1@3.com", "321");
-        Session  cinemaSession = new Session(0, "Session1", new Hall(3, "", 0, 0));
-        Ticket ticket = new Ticket(0, null, 2, 3, null);
-        Ticket fullTicket = new Ticket(0, cinemaSession, 2, 3, user1);
+        Session  cinemaSession = new Session(0, "Session1", 3);
+        Ticket ticket = new Ticket(0, 0, 2, 3, 0);
+        Ticket fullTicket = new Ticket(0, cinemaSession.getId(), 2, 3, user1.getId());
 
         when(req.getSession()).thenReturn(session);
         when(session.getAttribute("cinemaSession")).thenReturn(cinemaSession);
@@ -51,9 +51,9 @@ class TicketControllerTest {
         HttpSession session = mock(HttpSession.class);
 
         User user1 = new User(0, "User1", "123", "1@3.com", "321");
-        Session  cinemaSession = new Session(0, "Session1", new Hall(3, "", 0, 0));
-        Ticket ticket = new Ticket(0, null, 2, 3, null);
-        Ticket fullTicket = new Ticket(0, cinemaSession, 2, 3, user1);
+        Session  cinemaSession = new Session(0, "Session1", 3);
+        Ticket ticket = new Ticket(0, 0, 2, 3, 0);
+        Ticket fullTicket = new Ticket(0, cinemaSession.getId(), 2, 3, user1.getId());
 
         when(req.getSession()).thenReturn(session);
         when(session.getAttribute("cinemaSession")).thenReturn(cinemaSession);

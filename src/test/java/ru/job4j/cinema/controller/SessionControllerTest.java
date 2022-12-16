@@ -28,7 +28,7 @@ class SessionControllerTest {
         Session cinemaSession = new Session(
                 1,
                 "Session 1",
-                new Hall(1, "", 1, 2)
+                1
         );
         int id = cinemaSession.getId();
 
@@ -52,7 +52,7 @@ class SessionControllerTest {
         Session cinemaSession = new Session(
                 1,
                 "Session 1",
-                new Hall(1, "", 1, 2)
+                1
         );
         int id = cinemaSession.getId();
 

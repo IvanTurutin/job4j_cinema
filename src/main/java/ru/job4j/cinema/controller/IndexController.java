@@ -4,6 +4,7 @@ import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import ru.job4j.cinema.service.HallService;
 import ru.job4j.cinema.service.SessionService;
 import ru.job4j.cinema.util.ControllerUtility;
 
@@ -13,15 +14,18 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class IndexController {
     private final SessionService sessionService;
+    private final HallService hallService;
 
-    public IndexController(SessionService sessionService) {
+    public IndexController(SessionService sessionService, HallService hallService) {
         this.sessionService = sessionService;
+        this.hallService = hallService;
     }
 
     @GetMapping("/index")
     public String index(Model model, HttpSession session) {
         model.addAttribute("user", ControllerUtility.checkUser(session));
         model.addAttribute("sessions", sessionService.findAll());
+        session.setAttribute("halls", hallService.findAll());
         return "index";
     }
 

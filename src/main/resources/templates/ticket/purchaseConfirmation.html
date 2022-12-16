@@ -53,7 +53,7 @@
                         </h6>
                         <h6 class="card-subtitle mb-2">
                             <span>Зал: </span>
-                            <span th:text="${session.cinemaSession.hall.name}"></span>
+                            <span th:text="${session.halls.get(__${session.cinemaSession.hallId}__).name}"></span>
                         </h6>
                         <h6 class="card-subtitle mb-2">
                             <span>Ряд: </span>

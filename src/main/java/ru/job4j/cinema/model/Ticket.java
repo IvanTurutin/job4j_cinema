@@ -14,7 +14,7 @@ public class Ticket {
      * Сеанс на который куплен билет
      * @see ru.job4j.cinema.model.Session
      */
-    private Session cinemaSession;
+    private int sessionId;
     /**
      * Ряд, в котором находится место
      */
@@ -27,17 +27,17 @@ public class Ticket {
      * Пользователь, купивший билет
      * @see ru.job4j.cinema.model.User
      */
-    private User user;
+    private int userId;
 
     public Ticket() {
     }
 
-    public Ticket(int id, Session cinemaSession, int posRow, int cell, User user) {
+    public Ticket(int id, int sessionId, int posRow, int cell, int userId) {
         this.id = id;
-        this.cinemaSession = cinemaSession;
+        this.sessionId = sessionId;
         this.posRow = posRow;
         this.cell = cell;
-        this.user = user;
+        this.userId = userId;
     }
 
     public int getId() {
@@ -48,12 +48,12 @@ public class Ticket {
         this.id = id;
     }
 
-    public Session getCinemaSession() {
-        return cinemaSession;
+    public int getSessionId() {
+        return sessionId;
     }
 
-    public void setCinemaSession(Session cinemaSession) {
-        this.cinemaSession = cinemaSession;
+    public void setSessionId(int sessionId) {
+        this.sessionId = sessionId;
     }
 
     public int getPosRow() {
@@ -72,12 +72,12 @@ public class Ticket {
         this.cell = cell;
     }
 
-    public User getUser() {
-        return user;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     @Override
@@ -101,10 +101,10 @@ public class Ticket {
     public String toString() {
         return "Ticket{"
                 + "id=" + id
-                + ", session=" + cinemaSession
+                + ", session=" + sessionId
                 + ", posRow=" + posRow
                 + ", cell=" + cell
-                + ", user=" + user
+                + ", user=" + userId
                 + '}';
     }
 }
