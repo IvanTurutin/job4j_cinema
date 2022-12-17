@@ -36,12 +36,12 @@ public class SimpleSessionService implements SessionService {
     }
 
     @Override
-    public Optional<Session> update(Session session) {
+    public boolean update(Session session) {
         return sessionDBStore.update(session);
     }
 
     @Override
-    public boolean delete(int id) {
+    public Optional<Session>  delete(int id) {
         return sessionDBStore.delete(id);
     }
 }

@@ -14,5 +14,5 @@ public interface TicketRepository {
 
     Optional<Ticket> findById(int id);
 
-    boolean delete(int id);
+    Optional<Ticket> delete(int id);
 }

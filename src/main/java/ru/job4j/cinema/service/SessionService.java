@@ -12,7 +12,7 @@ public interface SessionService {
 
     Optional<Session> findById(int id);
 
-    Optional<Session> update(Session session);
+    boolean update(Session session);
 
-    boolean delete(int id);
+    Optional<Session> delete(int id);
 }

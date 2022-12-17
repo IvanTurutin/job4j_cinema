@@ -37,7 +37,7 @@ public class SimpleTicketService implements TicketService {
     }
 
     @Override
-    public boolean delete(int id) {
+    public Optional<Ticket> delete(int id) {
         return ticketDBStore.delete(id);
     }
 }

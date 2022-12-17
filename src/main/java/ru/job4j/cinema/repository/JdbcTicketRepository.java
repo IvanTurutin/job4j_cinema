@@ -141,10 +141,10 @@ public class JdbcTicketRepository implements TicketRepository {
     /**
      * Удаляет билет из базы
      * @param id идентификатор билета
-     * @return true если билет удален, false если нет
+     * @return удаленный билет обернутый в Optional, либо Optional.empty() если произошла обшибка удаления.
      */
     @Override
-    public boolean delete(int id) {
+    public Optional<Ticket> delete(int id) {
         throw new UnsupportedOperationException("Not implemented, yet");
     }
 

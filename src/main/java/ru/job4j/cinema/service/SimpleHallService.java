@@ -7,6 +7,7 @@ import ru.job4j.cinema.repository.HallRepository;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Сервисный слой кинозалов
@@ -30,9 +31,13 @@ public class SimpleHallService implements HallService {
         return hallRepository.findById(id);
     }
 
+    /**
+     * Преобразует список полученный от БД в карту.
+     * @return карта кинозалов в виде (идентификатор кинозала, объект кинозала)
+     */
     @Override
     public Map<Integer, Hall> findAll() {
-        return hallRepository.findAll();
+        return hallRepository.findAll().stream().collect(Collectors.toMap(Hall::getId, e -> e));
     }
 
     @Override

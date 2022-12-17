@@ -97,8 +97,8 @@ public class JdbcHallRepository implements HallRepository {
      * @return карту кинозалов.
      */
     @Override
-    public Map<Integer, Hall> findAll() {
-        Map<Integer, Hall> halls = new HashMap<>();
+    public Collection<Hall> findAll() {
+        Collection<Hall> halls = new ArrayList<>();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(FIND_ALL_STATEMENT)
         ) {
@@ -109,7 +109,7 @@ public class JdbcHallRepository implements HallRepository {
                     optionalHall = createHall(rs);
                     if (optionalHall.isPresent()) {
                         hall = optionalHall.get();
-                        halls.put(hall.getId(), hall);
+                        halls.add(hall);
                     }
                 }
             }

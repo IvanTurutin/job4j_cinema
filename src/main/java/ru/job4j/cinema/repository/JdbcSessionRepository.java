@@ -146,10 +146,10 @@ public class JdbcSessionRepository implements SessionRepository {
     /**
      * Метод осуществляет обновледние данных сеанса в базе данных
      * @param session объект сеанса для обновления.
-     * @return обновленный сеанс обернутый в Optional, либо Optional.empty() если такого сеанса не найдено.
+     * @return true если сеанс успешно обновлен, либо false если обновления не произошло.
      */
     @Override
-    public Optional<Session> update(Session session) {
+    public boolean update(Session session) {
         throw new UnsupportedOperationException("Not implemented, yet");
     }
 
@@ -159,7 +159,7 @@ public class JdbcSessionRepository implements SessionRepository {
      * @return удаленный сеанс обернутый в Optional, либо Optional.empty() если произошла обшибка удаления.
      */
     @Override
-    public boolean delete(int id) {
+    public Optional<Session> delete(int id) {
         throw new UnsupportedOperationException("Not implemented, yet");
     }
 }

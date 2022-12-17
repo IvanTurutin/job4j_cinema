@@ -45,10 +45,8 @@ class JdbcHallRepositoryTest {
         Hall hall2 = new Hall(0, "second", 8, 15);
         store.add(hall1);
         store.add(hall2);
-        Map.Entry<Integer, Hall> entry1 = new AbstractMap.SimpleEntry<>(hall1.getId(), hall1);
-        Map.Entry<Integer, Hall> entry2 = new AbstractMap.SimpleEntry<>(hall2.getId(), hall2);
-        Map<Integer, Hall> sessions = store.findAll();
-        assertThat(sessions).isNotEmpty().hasSize(2).contains(entry1, entry2);
+        Collection<Hall> sessions = store.findAll();
+        assertThat(sessions).isNotEmpty().hasSize(2).contains(hall1, hall2);
     }
 
 }
