@@ -146,7 +146,6 @@ public class JdbcUserRepository implements UserRepository {
      * Находит всех пользователей, имеющихся в базе данных
      * @return Список пользоваетелей.
      */
-
     @Override
     public List<User> findAll() {
         throw new UnsupportedOperationException("Not implemented, yet");

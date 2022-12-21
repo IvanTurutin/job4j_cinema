@@ -23,11 +23,10 @@ class UserControllerTest {
     void registrationSuccess() {
         SimpleUserService userService = mock(SimpleUserService.class);
         UserController userController = new UserController(userService);
-        Model model = mock(Model.class);
         User user = new User(0, "User1", "123", "1@3.com", "321");
 
         when(userService.add(user)).thenReturn(Optional.of(user));
-        String page = userController.registration(model, user);
+        String page = userController.registration(user);
 
         assertThat(page).isEqualTo("redirect:/successRegistration");
     }
@@ -36,11 +35,10 @@ class UserControllerTest {
     void registrationFail() {
         SimpleUserService userService = mock(SimpleUserService.class);
         UserController userController = new UserController(userService);
-        Model model = mock(Model.class);
         User user = new User(0, "User1", "123", "1@3.com", "321");
 
         when(userService.add(user)).thenReturn(Optional.empty());
-        String page = userController.registration(model, user);
+        String page = userController.registration(user);
 
         assertThat(page).isEqualTo("redirect:/failRegistration");
     }

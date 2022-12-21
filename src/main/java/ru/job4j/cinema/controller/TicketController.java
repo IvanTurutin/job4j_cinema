@@ -24,6 +24,11 @@ public class TicketController {
         this.ticketService = ticketService;
     }
 
+    /**
+     * Производит добавление в сессию атрибута со значением номера ряда введенного пользователем
+     * @param req запрос сформированный браузером
+     * @return перенаправляет на страницу /selectCell
+     */
     @PostMapping("/prepareSelectCell")
     public String prepareSelectCell(HttpServletRequest req) {
         HttpSession session = req.getSession();
@@ -31,12 +36,23 @@ public class TicketController {
         return "redirect:selectCell";
     }
 
+    /**
+     * Принимает запрос на отображение вида выбора номера места
+     * @param model модель вида
+     * @param session сессия подключения
+     * @return назнвание шаблона вида выбора места
+     */
     @GetMapping("/selectCell")
     public String selectCell(Model model, HttpSession session) {
         model.addAttribute("user", ControllerUtility.checkUser(session));
         return "ticket/selectCell";
     }
 
+    /**
+     * Производит добавление в сессию атрибута со значением номера места введенного пользователем
+     * @param req запрос сформированный браузером
+     * @return перенаправляет на страницу /purchaseConfirmation
+     */
     @PostMapping("/preparePurchaseConfirmation")
     public String purchaseConfirmation(HttpServletRequest req) {
         HttpSession session = req.getSession();
@@ -44,12 +60,26 @@ public class TicketController {
         return "redirect:purchaseConfirmation";
     }
 
+    /**
+     * Принимает запрос на отображение вида подтверждения покупки билета
+     * @param model модель вида
+     * @param session сессия подключения
+     * @return назнвание шаблона вида подтверждение покупки билета
+     */
     @GetMapping("/purchaseConfirmation")
     public String purchaseConfirmation(Model model, HttpSession session) {
         model.addAttribute("user", ControllerUtility.checkUser(session));
         return "ticket/purchaseConfirmation";
     }
 
+    /**
+     * Производит формирование билета и пытаетается его забронировать
+     * @param ticket объект билета, который формируется по результатам выбора пользователя
+     * @param req запрос сформированный браузером
+     * @return перенаправляет на страницу сообщающую на успешность бронирования билета:
+     * /successPurchase в случае успешного бронирования,
+     * /seatIsTaken в случае если место занято
+     */
     @PostMapping("/buyTicket")
     public String buyTicket(@ModelAttribute Ticket ticket, HttpServletRequest req) {
         HttpSession session = req.getSession();
@@ -64,6 +94,12 @@ public class TicketController {
         return "redirect:successPurchase";
     }
 
+    /**
+     * Принимает запрос на отображение вида "Место занято"
+     * @param model модель вида
+     * @param session сессия подключения
+     * @return назнвание шаблона вида сообщения об ошибке
+     */
     @GetMapping("/seatIsTaken")
     public String seatIsTaken(Model model, HttpSession session) {
         model.addAttribute("user", ControllerUtility.checkUser(session));
@@ -71,6 +107,12 @@ public class TicketController {
         return "message/fail";
     }
 
+    /**
+     * Принимает запрос на отображение вида "Билет забронирован"
+     * @param model модель вида
+     * @param session сессия подключения
+     * @return назнвание шаблона вида сообщения об успехе
+     */
     @GetMapping("/successPurchase")
     public String successPurchase(Model model, HttpSession session) {
         model.addAttribute("user", ControllerUtility.checkUser(session));

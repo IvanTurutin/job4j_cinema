@@ -21,23 +21,24 @@ public class SessionController {
         this.sessionService = sessionService;
     }
 
+    /**
+     * Принимает запрос на отображение вида выбора ряда выбранного сеанса
+     * @param model модель вида
+     * @param session сессия подключения
+     * @param id идентификатор сеанса
+     * @return назнвание шаблона вида выбора ряда если такой сеанс есть,
+     * либо название шаблона ошибки, если сеанс не найден.
+     */
     @GetMapping("/formShowSession/{sessionId}")
     public String formShowSession(Model model, HttpSession session, @PathVariable("sessionId") int id) {
         model.addAttribute("user", ControllerUtility.checkUser(session));
         Optional<Session> cinemaSession = sessionService.findById(id);
         if (cinemaSession.isEmpty()) {
             model.addAttribute("message", "Такой сеанс не найден.");
-            return "fail";
+            return "message/fail";
         }
         session.setAttribute("cinemaSession", cinemaSession.get());
         return "ticket/selectRow";
-    }
-
-    @GetMapping("/failSession")
-    public String failSession(Model model, HttpSession session) {
-        model.addAttribute("user", ControllerUtility.checkUser(session));
-        model.addAttribute("message", "Такой фильм не найден.");
-        return "message/fail";
     }
 
 }

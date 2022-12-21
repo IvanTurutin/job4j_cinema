@@ -63,7 +63,7 @@ class SessionControllerTest {
 
         verify(model).addAttribute("user", user);
 
-        assertThat(page).isEqualTo("fail");
+        assertThat(page).isEqualTo("message/fail");
     }
 
 }

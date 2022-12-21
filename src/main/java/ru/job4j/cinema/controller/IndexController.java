@@ -10,6 +10,9 @@ import ru.job4j.cinema.util.ControllerUtility;
 
 import javax.servlet.http.HttpSession;
 
+/**
+ * Контроллер стартовой страницы
+ */
 @ThreadSafe
 @Controller
 public class IndexController {
@@ -21,6 +24,12 @@ public class IndexController {
         this.hallService = hallService;
     }
 
+    /**
+     * Принимает запрос на отображение стартовой страницы
+     * @param model модель вида
+     * @param session сессия подключения
+     * @return названия шаблона, которое требуется ипользовать для формирния вида и показа пользователю
+     */
     @GetMapping("/index")
     public String index(Model model, HttpSession session) {
         model.addAttribute("user", ControllerUtility.checkUser(session));
